@@ -14,9 +14,14 @@ yarn add @haydenbleasel/next-fathom
 import useFathom from '@haydenbleasel/next-fathom';
 
 const Component = () => {
-  const { trackGoal } = useFathom('YOUR_SITE_ID', options);
+  const { trackGoal, setTrackingEnabled } = useFathom('YOUR_SITE_ID', options);
 
-  return <p onClick={() => trackGoal('YOUR_GOAL_ID', 20)}>Goal achieved!</p>;
+  return (
+    <div>
+      <p onClick={() => trackGoal('YOUR_GOAL_ID', 20)}>Goal achieved!</p>
+      <p onClick={() => setTrackingEnabled(false)}>Disable tracking</p>
+    </div>
+  );
 };
 ```
 
@@ -24,10 +29,13 @@ const Component = () => {
 
 Options can be passed to the hook to customize the behavior of the Fathom script. These options are exported from [`LoadOptions`](https://github.com/derrickreimer/fathom-client#arguments) on the [`fathom-client`](https://github.com/derrickreimer/fathom-client) package.
 
-### Return Value
+The `url` option within `LoadOptions` has built-in compensation if you forget to enter the `script.js` endpoint, meaning you can simply pass the domain name of your Fathom instance e.g. `https://analytics.example.com` and it will append `/script.js` for you.
 
-The `useFathom` hook actually returns three values:
+### Return Values
+
+The `useFathom` hook actually returns two values:
 
 1. `trackGoal` - directly exported from `fathom-client`, this function can be used to track goals.
-2. `setSite` - directly exported from `fathom-client`, this function can be used to change the site ID.
-3. `setTrackingEnabled` - this function can be used to enable or disable tracking. This maps to `fathom-client`'s `enableTrackingForMe` and `blockTrackingForMe`, initially set to the result of `isTrackingEnabled()`.
+2. `toggleTracking(boolean)` - this function can be used to toggle, enable or disable tracking. This maps to `fathom-client`'s `enableTrackingForMe` and `blockTrackingForMe`, initially set to the result of `isTrackingEnabled()`. If not passed a boolean, it will toggle the current state.
+
+The `setSite` function is not exported, as a change to the Site ID as the first argument to the hook will un-hook from the router and re-initialize the Fathom script.

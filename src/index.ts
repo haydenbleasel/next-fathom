@@ -8,7 +8,6 @@ import {
   enableTrackingForMe,
   isTrackingEnabled,
   trackGoal,
-  setSite,
 } from 'fathom-client';
 
 const useFathom = (
@@ -16,11 +15,12 @@ const useFathom = (
   options?: LoadOptions
 ): {
   trackGoal: typeof trackGoal;
-  setSite: typeof setSite;
-  setTrackingEnabled: (enabled: boolean) => void;
+  toggleTracking: (enabled?: boolean) => void;
 } => {
   const { events } = useRouter();
   const [trackingEnabled, setTrackingEnabled] = useState(isTrackingEnabled());
+  const toggleTracking = (enabled?: boolean) =>
+    setTrackingEnabled(enabled ?? !trackingEnabled);
 
   useEffect(() => {
     if (trackingEnabled) {
@@ -31,6 +31,14 @@ const useFathom = (
   }, [trackingEnabled]);
 
   useEffect(() => {
+    const newOptions = { ...options };
+
+    if (newOptions.url) {
+      const { hostname } = new URL(newOptions.url);
+
+      newOptions.url = new URL('script.js', hostname).href;
+    }
+
     load(siteId, options);
 
     const onRouteChangeComplete = () => trackPageview();
@@ -44,7 +52,7 @@ const useFathom = (
     };
   }, [events, options, siteId]);
 
-  return { trackGoal, setTrackingEnabled, setSite };
+  return { trackGoal, toggleTracking };
 };
 
 export default useFathom;
