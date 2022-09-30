@@ -40,9 +40,9 @@ const useFathom = (
     const newOptions = { ...options };
 
     if (newOptions.url) {
-      const { hostname } = new URL(newOptions.url);
+      const { origin } = new URL(newOptions.url);
 
-      newOptions.url = new URL('script.js', hostname).href;
+      newOptions.url = new URL('script.js', origin).href;
     }
 
     load(siteId, options);
