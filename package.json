@@ -1,6 +1,6 @@
 {
   "name": "@haydenbleasel/next-fathom",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A tiny, SSR-friendly hook for adding Fathom Analytics to Next.js",
   "files": [
     "dist"
