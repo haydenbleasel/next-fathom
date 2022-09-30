@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import type { LoadOptions } from 'fathom-client';
 import {
   load,
@@ -18,23 +18,6 @@ const useFathom = (
   toggleTracking: (enabled?: boolean) => void;
 } => {
   const { events } = useRouter();
-  const defaultState =
-    typeof window === 'undefined' ? null : isTrackingEnabled();
-  const [trackingEnabled, setTrackingEnabled] = useState(defaultState);
-  const toggleTracking = (enabled?: boolean) =>
-    setTrackingEnabled(enabled ?? !trackingEnabled);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    if (trackingEnabled) {
-      enableTrackingForMe();
-    } else {
-      blockTrackingForMe();
-    }
-  }, [trackingEnabled]);
 
   useEffect(() => {
     const newOptions = { ...options };
@@ -57,6 +40,20 @@ const useFathom = (
       events.off('routeChangeComplete', onRouteChangeComplete);
     };
   }, [events, options, siteId]);
+
+  const toggleTracking = (enabled?: boolean) => {
+    if (enabled === undefined) {
+      if (isTrackingEnabled()) {
+        blockTrackingForMe();
+      } else {
+        enableTrackingForMe();
+      }
+    } else if (enabled) {
+      enableTrackingForMe();
+    } else {
+      blockTrackingForMe();
+    }
+  };
 
   return { trackGoal, toggleTracking };
 };
