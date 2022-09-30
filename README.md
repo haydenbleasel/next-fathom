@@ -33,9 +33,9 @@ The `url` option within `LoadOptions` has built-in compensation if you forget to
 
 ### Return Values
 
-The `useFathom` hook actually returns two values:
+The `useFathom` hook returns two values:
 
 1. `trackGoal` - directly exported from `fathom-client`, this function can be used to track goals.
-2. `toggleTracking(boolean)` - this function can be used to toggle, enable or disable tracking. This maps to `fathom-client`'s `enableTrackingForMe` and `blockTrackingForMe`, initially set to the result of `isTrackingEnabled()`. If not passed a boolean, it will toggle the current state.
+2. `toggleTracking(boolean)` - this function can be used to toggle, enable or disable tracking. When passed a boolean, this maps to `fathom-client`'s `enableTrackingForMe` and `blockTrackingForMe`. If not passed a boolean, it will toggle the current state. The initial value is the result of `fathom-client`'s `isTrackingEnabled()`.
 
 The `setSite` function is not exported, as a change to the Site ID as the first argument to the hook will un-hook from the router and re-initialize the Fathom script.
