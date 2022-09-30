@@ -22,7 +22,7 @@ const Component = () => {
 
 ### Options
 
-Options can be passed to the hook to customize the behavior of the Fathom script. These options are exported from `LoadOptions` on the [`fathom-client`](https://github.com/derrickreimer/fathom-client) package.
+Options can be passed to the hook to customize the behavior of the Fathom script. These options are exported from [`LoadOptions`](https://github.com/derrickreimer/fathom-client#arguments) on the [`fathom-client`](https://github.com/derrickreimer/fathom-client) package.
 
 ### Return Value
 
