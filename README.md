@@ -11,7 +11,7 @@ yarn add @haydenbleasel/next-fathom
 ### Usage
 
 ```tsx
-import { useFathom } from '@haydenbleasel/next-fathom';
+import useFathom from '@haydenbleasel/next-fathom';
 
 const Component = () => {
   const { trackGoal } = useFathom('YOUR_SITE_ID', options);
