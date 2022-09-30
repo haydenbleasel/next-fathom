@@ -1,6 +1,6 @@
 # next-fathom
 
-`next-fathom` is a React hook specifically designed for Next.js that adds [Fathom Analytics](https://usefathom.com/), a privacy-focused analytics tool, to your site. When installed, it will automatically initialize Fathom and track page views using the Next.js router.
+`next-fathom` is a tiny, SSR-friendly React hook specifically designed for Next.js that adds [Fathom Analytics](https://usefathom.com/), a privacy-focused analytics tool, to your site. When installed, it will automatically initialize Fathom and track page views using the Next.js router.
 
 ### Installation
 

@@ -18,11 +18,17 @@ const useFathom = (
   toggleTracking: (enabled?: boolean) => void;
 } => {
   const { events } = useRouter();
-  const [trackingEnabled, setTrackingEnabled] = useState(isTrackingEnabled());
+  const defaultState =
+    typeof window === 'undefined' ? null : isTrackingEnabled();
+  const [trackingEnabled, setTrackingEnabled] = useState(defaultState);
   const toggleTracking = (enabled?: boolean) =>
     setTrackingEnabled(enabled ?? !trackingEnabled);
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     if (trackingEnabled) {
       enableTrackingForMe();
     } else {
